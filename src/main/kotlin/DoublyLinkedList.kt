@@ -1,50 +1,61 @@
 data class Node<T>(
     var value: T,
-    var next: Node<T>? = null
+    var next: Node<T>? = null,
+    var previous: Node<T>? = null
 )
 
-class LinkedList<T>(private var head: Node<T>? = null) {
+class DoublyLinkedList<T>(private var head: Node<T>? = null) {
 
-    var tail: Node<T>? = head
+    private var tail: Node<T>? = head
     var length: Int = 0
         private set
 
     // O(1) since we keep a reference to the tail
     // and don't need to traverse the list
-    fun append(item: Node<T>) {
+    fun append(newItem: Node<T>) {
         if (head == null) {
-            head = item
+            head = newItem
             tail = head
         } else {
-            tail?.next = item
+            newItem.previous = tail
+            tail?.next = newItem
             tail = tail?.next
         }
         length++
     }
 
     // O(1) time complexity
-    fun prepend(item: Node<T>) {
+    fun prepend(newItem: Node<T>) {
         if (head == null) {
-            head = item
+            head = newItem
             tail = head
         } else {
-            item.next = head
-            head = item
+            head?.previous = newItem
+            newItem.next = head
+            head = newItem
         }
         length++
     }
 
-    fun insert(item: Node<T>, index: Int) {
+    // O(n) because we have to traverse to index
+    fun insert(newItem: Node<T>, index: Int) {
         // Ensure index is valid
         if (index >= length) {
-            append(item)
+            append(newItem)
             return
         }
 
-        val leader = this.traverseToIndex(index -1)
-        val holdingNode = leader?.next
-        leader?.next = item
-        item.next = holdingNode
+        // Get reference to nodes before and after desired index
+        val leadingNode = this.traverseToIndex(index - 1)
+        val followingNode = leadingNode?.next
+
+        // Link surrounding nodes to new node
+        leadingNode?.next = newItem
+        followingNode?.previous = newItem
+
+        // Link new node to surrounding nodes
+        newItem.next = followingNode
+        newItem.previous = leadingNode
         length++
     }
 
@@ -52,7 +63,7 @@ class LinkedList<T>(private var head: Node<T>? = null) {
         var counter = 0
         var current = head
 
-        while (counter !== index) {
+        while (counter != index) {
             current = current?.next
             counter++
         }
@@ -66,10 +77,15 @@ class LinkedList<T>(private var head: Node<T>? = null) {
             println("Error: index out of bounds. No item removed")
             return
         }
-        val previous = this.traverseToIndex(index - 1)
-        val itemToRemove = previous?.next
-        val after = itemToRemove?.next
-        previous?.next = after
+
+        // Get references to unwanted and surrounding nodes
+        val leadingNode = this.traverseToIndex(index - 1)
+        val unwantedNode = leadingNode?.next
+        val followingNode = unwantedNode?.next
+
+        // Link surrounding nodes to each other
+        leadingNode?.next = followingNode
+        followingNode?.previous = leadingNode
         length--
     }
 
@@ -80,18 +96,17 @@ class LinkedList<T>(private var head: Node<T>? = null) {
     // O(n) as we're looping through all items
     fun printList() {
         var next = head?.next
-        print("${head?.value}")
+        print("[${head?.previous?.value}|${head?.value}|${head?.next?.value}]")
         while (next != null) {
-            print(" -> ${next.value}")
+            print("--[${next.previous?.value}|${next.value}|${next.next?.value}]")
             next = next.next
         }
-        print(" -> $next")
     }
 }
 
 fun main() {
     val nodeOne = Node("one")
-    val myLinkedList = LinkedList(nodeOne)
+    val myLinkedList = DoublyLinkedList(nodeOne)
     myLinkedList.printList()
     println("\n---------------------------------")
 
@@ -104,7 +119,7 @@ fun main() {
     myLinkedList.printList()
     println("\n---------------------------------")
 
-    val anotherList = LinkedList<Int>()
+    val anotherList = DoublyLinkedList<Int>()
     val intNodeOne = Node(1)
     val intNodeTwo = Node(2)
     val intNodeThree = Node(3)
@@ -114,7 +129,7 @@ fun main() {
     anotherList.printList()
     println("\n---------------------------------")
 
-    val emojiList = LinkedList<String>()
+    val emojiList = DoublyLinkedList<String>()
     val emojiOne = Node("🦄")
     val emojiTwo = Node("🦁")
     val emojiThree = Node("🐬")
