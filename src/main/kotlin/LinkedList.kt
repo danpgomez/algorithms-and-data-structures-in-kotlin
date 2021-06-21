@@ -94,7 +94,7 @@ class LinkedList<T>(private var head: Node<T>? = null) {
 
         // Reverse all .next pointers
         while (second != null) {
-            val temp = second?.next
+            val temp = second.next
             second.next = first
 
             // Advance pointers to next group
