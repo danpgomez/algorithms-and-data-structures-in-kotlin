@@ -5,3 +5,4 @@ This is a project to practice and learn the implementation of different algorith
 ## Quick Links:
 - [Dynamic Array](src/main/kotlin/DynamicArray.kt)
 - [Hash Table](src/main/kotlin/HashTable.kt)
+- [Doubly Linked List](src/main/kotlin/DoublyLinkedList.kt)

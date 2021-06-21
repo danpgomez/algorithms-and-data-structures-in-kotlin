@@ -67,7 +67,6 @@ class DoublyLinkedList<T>(private var head: Node<T>? = null) {
             current = current?.next
             counter++
         }
-
         return current
     }
 
