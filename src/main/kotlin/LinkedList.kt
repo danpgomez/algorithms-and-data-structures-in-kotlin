@@ -1,4 +1,4 @@
-class DoublyLinkedList<T>(private var head: Node<T>? = null) {
+class LinkedList<T>(private var head: Node<T>? = null) {
 
     private var tail: Node<T>? = head
     var length: Int = 0
@@ -11,7 +11,6 @@ class DoublyLinkedList<T>(private var head: Node<T>? = null) {
             head = newItem
             tail = head
         } else {
-            newItem.previous = tail
             tail?.next = newItem
             tail = tail?.next
         }
@@ -24,7 +23,6 @@ class DoublyLinkedList<T>(private var head: Node<T>? = null) {
             head = newItem
             tail = head
         } else {
-            head?.previous = newItem
             newItem.next = head
             head = newItem
         }
@@ -45,11 +43,9 @@ class DoublyLinkedList<T>(private var head: Node<T>? = null) {
 
         // Link surrounding nodes to new node
         leadingNode?.next = newItem
-        followingNode?.previous = newItem
 
         // Link new node to surrounding nodes
         newItem.next = followingNode
-        newItem.previous = leadingNode
         length++
     }
 
@@ -78,37 +74,52 @@ class DoublyLinkedList<T>(private var head: Node<T>? = null) {
 
         // Link surrounding nodes to each other
         leadingNode?.next = followingNode
-        followingNode?.previous = leadingNode
         length--
+    }
+
+    // Iteratively reverse a singly linked list
+    // O(n) as we have to traverse the entire list
+    fun reverse(): LinkedList<T> {
+        // Check if list only has 1 node
+        if (head?.next == null) {
+            return this
+        }
+
+        // Get references to first two nodes
+        var first = head
+        var second = first?.next
+
+        // Reverse the tail
+        tail = head
+
+        // Reverse all .next pointers
+        while (second != null) {
+            val temp = second?.next
+            second.next = first
+
+            // Advance pointers to next group
+            first = second
+            second = temp
+        }
+
+        head?.next = null
+        head = first
+        return this
     }
 
     // O(n) as we're looping through all items
     fun printList() {
         var next = head?.next
-        print("[${head?.previous?.value}|${head?.value}|${head?.next?.value}]")
+        print("[${head?.value}|${head?.next?.value}]")
         while (next != null) {
-            print("--[${next.previous?.value}|${next.value}|${next.next?.value}]")
+            print("->[${next.value}|${next.next?.value}]")
             next = next.next
         }
     }
 }
 
 fun main() {
-    val nodeOne = Node("one")
-    val myLinkedList = DoublyLinkedList(nodeOne)
-    myLinkedList.printList()
-    println("\n---------------------------------")
-
-    val nodeTwo = Node("two")
-    val nodeThree = Node("three")
-    val nodeFour = Node("four")
-    myLinkedList.append(nodeTwo)
-    myLinkedList.append(nodeThree)
-    myLinkedList.append(nodeFour)
-    myLinkedList.printList()
-    println("\n---------------------------------")
-
-    val anotherList = DoublyLinkedList<Int>()
+    val anotherList = LinkedList<Int>()
     val intNodeOne = Node(1)
     val intNodeTwo = Node(2)
     val intNodeThree = Node(3)
@@ -118,34 +129,18 @@ fun main() {
     anotherList.printList()
     println("\n---------------------------------")
 
-    val emojiList = DoublyLinkedList<String>()
-    val emojiOne = Node("🦄")
-    val emojiTwo = Node("🦁")
-    val emojiThree = Node("🐬")
+    val emojiList = LinkedList<String>()
+    val emojiOne = Node("🍋")
+    val emojiTwo = Node("🌶")
+    val emojiThree = Node("🫐")
     emojiList.prepend(emojiOne)
-    emojiList.printList()
-    println("\n---------------------------------")
     emojiList.prepend(emojiTwo)
-    emojiList.printList()
-    println("\n---------------------------------")
     emojiList.prepend(emojiThree)
     emojiList.printList()
     println("\n---------------------------------")
-    emojiList.printList()
-    println("\n---------------------------------")
 
-    val emojiFour = Node("🐷")
+    val emojiFour = Node("🍌")
     emojiList.insert(emojiFour, 3)
-    emojiList.printList()
-    println("\n---------------------------------")
-
-    val emojiFive = Node("🐨")
-    emojiList.insert(emojiFive, 1)
-    emojiList.printList()
-    println("\n---------------------------------")
-
-    emojiList.remove(1)
-    println("length is: ${emojiList.length}")
     emojiList.printList()
     println("\n---------------------------------")
 
@@ -154,13 +149,12 @@ fun main() {
     emojiList.printList()
     println("\n---------------------------------")
 
-    emojiList.remove(7)
+    emojiList.remove(-1)
     println("length is: ${emojiList.length}")
     emojiList.printList()
     println("\n---------------------------------")
 
-    emojiList.remove(-1)
-    println("length is: ${emojiList.length}")
+    emojiList.reverse()
     emojiList.printList()
     println("\n---------------------------------")
 }
