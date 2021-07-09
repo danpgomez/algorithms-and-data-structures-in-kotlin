@@ -55,27 +55,24 @@ class BinarySearchTree(
     }
 
     fun remove(value: Int): Boolean {
-        // check that tree is not empty
         if (root == null) {
             println("Error: Tree is empty")
             return false
         }
-        // get references to parentNode and currentNode
+
         var parentNode = root
         var currentNode = root
-        // traverse tree (while loop)
+
         while (currentNode != null) {
             if (value < currentNode.value) {
-                // if value < currentNode.value go left
-                // update reference to parentNode
+                // If value is smaller than currentNode go left
                 parentNode = currentNode
                 currentNode = currentNode.left
             } else if (value > currentNode.value) {
-                // else if value > currentNode.value go right
-                // update reference to parentNode
+                // If value is greater than currentNode go right
                 parentNode = currentNode
                 currentNode = currentNode.right
-            } else if (value == currentNode.value) { // else if value == currentNode.value == We have a match!!!
+            } else if (value == currentNode.value) { // We have a match!!!
 
                 // Option 1: currentNode (desired node) is a leaf
                 if (currentNode.left == null && currentNode.right == null) {
@@ -107,7 +104,7 @@ class BinarySearchTree(
                 }
 
                 // Option 3: currentNode (desired node) has two children. Replace with successor
-                // successor is leftmost of right child
+                // Successor is leftmost of right child
                 else {
                     // Step 1. Get reference to undesired node's children
                     val rightChild = currentNode.right
