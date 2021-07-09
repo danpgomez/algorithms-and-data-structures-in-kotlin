@@ -9,3 +9,4 @@ This is a project to practice and learn the implementation of different algorith
 - [Doubly Linked List](src/main/kotlin/DoublyLinkedList.kt)
 - [Stack](src/main/kotlin/Stack.kt)
 - [Queue](src/main/kotlin/Queue.kt)
+- [Binary Search Tree](src/main/kotlin/BinarySearchTree.kt)
