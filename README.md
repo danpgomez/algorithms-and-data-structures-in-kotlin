@@ -10,3 +10,4 @@ This is a project to practice and learn the implementation of different algorith
 - [Stack](src/main/kotlin/Stack.kt)
 - [Queue](src/main/kotlin/Queue.kt)
 - [Binary Search Tree](src/main/kotlin/BinarySearchTree.kt)
+- [Graphs](src/main/kotlin/Graph.kt)
