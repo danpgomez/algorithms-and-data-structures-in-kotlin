@@ -1,3 +1,5 @@
+package data_structures
+
 class Graph<T>(
     private var numberOfNodes: Int = 0,
     private var adjacentList: MutableMap<Node<T>, MutableList<Node<T>>?>? = mutableMapOf(),

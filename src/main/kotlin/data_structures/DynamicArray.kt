@@ -1,3 +1,5 @@
+package data_structures
+
 class DynamicArray(vararg values: String) {
 
     val isEmpty = values.isEmpty()

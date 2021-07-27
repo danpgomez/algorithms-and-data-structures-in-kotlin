@@ -1,3 +1,5 @@
+package data_structures
+
 class LinkedList<T>(private var head: Node<T>? = null) {
 
     private var tail: Node<T>? = head

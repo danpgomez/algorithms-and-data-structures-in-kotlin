@@ -1,4 +1,4 @@
-// Source: https://medium.com/swlh/building-a-hash-map-in-kotlin-73c9b23d19ba
+package data_structures// Source: https://medium.com/swlh/building-a-hash-map-in-kotlin-73c9b23d19ba
 
 class HashTable<K, V> {
 

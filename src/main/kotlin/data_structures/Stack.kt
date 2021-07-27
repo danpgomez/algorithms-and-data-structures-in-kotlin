@@ -1,3 +1,5 @@
+package data_structures
+
 import java.util.*
 
 class Stack<T>(

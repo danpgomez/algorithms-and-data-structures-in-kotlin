@@ -1,3 +1,5 @@
+package data_structures
+
 class DoublyLinkedList<T>(private var head: Node<T>? = null) {
 
     private var tail: Node<T>? = head

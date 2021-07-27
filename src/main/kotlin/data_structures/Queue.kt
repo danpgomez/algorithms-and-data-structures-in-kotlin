@@ -1,3 +1,5 @@
+package data_structures
+
 class Queue<T> {
     private var first: Node<T>? = null
     private var last: Node<T>? = null
