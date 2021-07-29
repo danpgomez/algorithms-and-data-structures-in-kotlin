@@ -21,7 +21,7 @@ fun main() {
         return newString
     }
 
-    println(reverseStringRecursive("Daniel"))
-//    println(reverseStringIteratively("My name is Daniel"))
+    println(reverseStringRecursive("My name is Daniel"))
+    println(reverseStringIteratively("I love Super Smash Bros"))
 
 }
