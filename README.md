@@ -18,6 +18,7 @@ This is a project to practice and learn the implementation of different algorith
 - [Bubble Sort](src/main/kotlin/sorting_algorithms/BubbleSort.kt)
 - [Selection Sort](src/main/kotlin/sorting_algorithms/SelectionSort.kt)
 - [Insertion Sort](src/main/kotlin/sorting_algorithms/InsertionSort.kt)
+- [Merge Sort](src/main/kotlin/sorting_algorithms/MergeSort.kt)
 
 ## Searching
 
