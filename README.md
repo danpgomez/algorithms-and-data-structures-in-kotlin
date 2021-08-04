@@ -20,7 +20,7 @@ This is a project to practice and learn the implementation of different algorith
 - [Insertion Sort](src/main/kotlin/sorting_algorithms/InsertionSort.kt)
 - [Merge Sort](src/main/kotlin/sorting_algorithms/MergeSort.kt)
 
-## Searching
+### Searching
 
 -  Coming soon
 

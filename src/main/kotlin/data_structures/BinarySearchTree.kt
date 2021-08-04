@@ -47,9 +47,9 @@ class BinarySearchTree(
         var currentNode = root
         while (currentNode != null) {
             when {
-               value < currentNode.value -> currentNode = currentNode.left
-               value > currentNode.value -> currentNode = currentNode.right
-               value == currentNode.value -> return true
+                value < currentNode.value -> currentNode = currentNode.left
+                value > currentNode.value -> currentNode = currentNode.right
+                value == currentNode.value -> return true
             }
         }
 
@@ -78,20 +78,20 @@ class BinarySearchTree(
 
                 // Option 1: currentNode (desired node) is a leaf
                 if (currentNode.left == null && currentNode.right == null) {
-                    if (currentNode == root) {
+                    return if (currentNode == root) {
                         root = null
-                        return true
+                        true
                     } else {
                         when {
                             value < parentNode!!.value -> parentNode.left = null
                             value > parentNode.value -> parentNode.right = null
                         }
-                        return true
+                        true
                     }
                 }
 
                 // Option 2: currentNode (desired node) has one child
-                else if ((currentNode.left != null)xor(currentNode.right != null)) {
+                else if ((currentNode.left != null) xor (currentNode.right != null)) {
                     if (currentNode.left != null) {
                         when {
                             currentNode.left!!.value < parentNode?.value!! -> parentNode.left = currentNode.left
@@ -122,7 +122,7 @@ class BinarySearchTree(
                     // Step 3. Attach children of undesired node to successor
                     // Check whether the parent node is the root and if so only assign the left child
                     if (parentNode == root) {
-                       currentNode?.left = leftChild
+                        currentNode?.left = leftChild
                         root = currentNode
                     } else {
                         successor?.right = rightChild
@@ -141,6 +141,58 @@ class BinarySearchTree(
         }
         println("$value not found")
         return false
+    }
+
+    fun breadthFirstSearch() {
+        var currentNode = root
+        val list = mutableListOf<Int>()
+        val queue = mutableListOf<TreeNode>()
+
+        if (currentNode != null) {
+            queue.add(currentNode)
+        }
+
+        while (queue.size > 0) {
+            currentNode = queue.removeAt(0)
+            list.add(currentNode.value)
+
+            if (currentNode.left != null) {
+                queue.add(currentNode.left as TreeNode)
+            }
+
+            if (currentNode.right != null) {
+                queue.add(currentNode.right as TreeNode)
+            }
+        }
+
+        print("BFS: ")
+        list.forEach {
+            print("$it, ")
+        }
+    }
+
+    fun breadthFirstSearchR(queue: MutableList<TreeNode?>, list: MutableList<Int>): MutableList<Int> {
+        if (queue.size == 0) {
+            println("Tree is empty")
+            return list
+        }
+
+        val currentNode = queue.removeAt(0)
+        if (currentNode != null) {
+            list.add(currentNode.value)
+
+            if (currentNode.left != null) {
+                queue.add(currentNode.left as TreeNode)
+            }
+
+            if (currentNode.right != null) {
+                queue.add(currentNode.right as TreeNode)
+            }
+        }
+
+
+
+        return breadthFirstSearchR(queue, list)
     }
 }
 
@@ -177,6 +229,16 @@ fun main() {
     println(myTree.lookup(30))
     println(myTree.lookup(40))
 
+    // Breadth First Search
+    myTree.breadthFirstSearch()
+
+    // Breadth First Search Recursively
+    val root = myTree.root
+    val queue = mutableListOf(root)
+    val list = mutableListOf<Int>()
+    val result = myTree.breadthFirstSearchR(queue, list)
+    println("BFS Recursively: $result")
+
     // Remove
     println(myTree.remove(9))
     println(myTree.remove(5))
@@ -187,5 +249,4 @@ fun main() {
     preOrderTraversal(myTree.root) {
         println("After remove: ${it.value}")
     }
-
 }
